@@ -1,13 +1,9 @@
-import dynamic from 'next/dynamic';
-
-const Map = dynamic(() => import('@/components/Map'), {
-  ssr: false,
-});
+import MapLoader from '@/components/MapLoader';
 
 export default function Home() {
   return (
     <main>
-      <Map />
+      <MapLoader />
     </main>
   );
 } 
