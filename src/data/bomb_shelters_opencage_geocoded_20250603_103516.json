@@ -1642,7 +1642,7 @@
       "geocoding_status": "success",
       "formatted_query": "с. Соколово, с. Соколово /0/, България",
       "short_category": "Първа категория",
-      "city": NaN,
+      "city": null,
       "has_coordinates": true
     },
     {
@@ -1727,7 +1727,7 @@
       "geocoding_status": "success",
       "formatted_query": "с. Звездел, с. Звездел 0, България",
       "short_category": "Втора категория",
-      "city": NaN,
+      "city": null,
       "has_coordinates": true
     },
     {
@@ -1744,7 +1744,7 @@
       "geocoding_status": "success",
       "formatted_query": "с. Големо село, с. Големо село 0, България",
       "short_category": "Втора категория",
-      "city": NaN,
+      "city": null,
       "has_coordinates": true
     },
     {
@@ -1846,7 +1846,7 @@
       "geocoding_status": "success",
       "formatted_query": "с. Главиница, с. Главиница 0, България",
       "short_category": "Първа категория",
-      "city": NaN,
+      "city": null,
       "has_coordinates": true
     },
     {
@@ -1948,7 +1948,7 @@
       "geocoding_status": "success",
       "formatted_query": "с. Панагюрски колонии, с. Панагюрски Колони 0, България",
       "short_category": "Първа категория",
-      "city": NaN,
+      "city": null,
       "has_coordinates": true
     },
     {
@@ -2033,7 +2033,7 @@
       "geocoding_status": "success",
       "formatted_query": "с. Бошуля, с. Бошуля 0, България",
       "short_category": "Втора категория",
-      "city": NaN,
+      "city": null,
       "has_coordinates": true
     },
     {
@@ -2594,7 +2594,7 @@
       "geocoding_status": "success",
       "formatted_query": "с. Долна махала, с. Долна махала 0 ,, България",
       "short_category": "Първа категория",
-      "city": NaN,
+      "city": null,
       "has_coordinates": true
     },
     {
@@ -2628,7 +2628,7 @@
       "geocoding_status": "success",
       "formatted_query": "с. Граф Игнатиево, с. Граф Игнатиево 0, България",
       "short_category": "Втора категория",
-      "city": NaN,
+      "city": null,
       "has_coordinates": true
     },
     {
@@ -3104,7 +3104,7 @@
       "geocoding_status": "low_confidence",
       "formatted_query": "с. Острово, ул. Хемус 71, България",
       "short_category": "Втора категория",
-      "city": NaN,
+      "city": null,
       "has_coordinates": true
     },
     {
@@ -3172,7 +3172,7 @@
       "geocoding_status": "success",
       "formatted_query": "с. Вазово, ул. Лом 3, България",
       "short_category": "Втора категория",
-      "city": NaN,
+      "city": null,
       "has_coordinates": true
     },
     {
@@ -3189,7 +3189,7 @@
       "geocoding_status": "low_confidence",
       "formatted_query": "с. Свещари, ул. Демокрация 16, България",
       "short_category": "Втора категория",
-      "city": NaN,
+      "city": null,
       "has_coordinates": true
     },
     {
@@ -3325,7 +3325,7 @@
       "geocoding_status": "success",
       "formatted_query": "с. Бисерци, ул. Розова долина 2, България",
       "short_category": "Втора категория",
-      "city": NaN,
+      "city": null,
       "has_coordinates": true
     },
     {
@@ -3903,7 +3903,7 @@
       "geocoding_status": "success",
       "formatted_query": "с. Николово, Землище на с. Николово 0, България",
       "short_category": "Първа категория",
-      "city": NaN,
+      "city": null,
       "has_coordinates": true
     },
     {
@@ -4345,7 +4345,7 @@
       "geocoding_status": "low_confidence",
       "formatted_query": "с. Баните, ул. Стефан Стамболов 5, България",
       "short_category": "Втора категория",
-      "city": NaN,
+      "city": null,
       "has_coordinates": true
     },
     {
@@ -4362,7 +4362,7 @@
       "geocoding_status": "success",
       "formatted_query": "с. Оряховец, с. Оряховец 0, България",
       "short_category": "Втора категория",
-      "city": NaN,
+      "city": null,
       "has_coordinates": true
     },
     {
@@ -4379,7 +4379,7 @@
       "geocoding_status": "success",
       "formatted_query": "с. Борино, с. Борино 0, България",
       "short_category": "Втора категория",
-      "city": NaN,
+      "city": null,
       "has_coordinates": true
     },
     {
@@ -4855,7 +4855,7 @@
       "geocoding_status": "success",
       "formatted_query": "с. Ковачево, с. Ковачево /0/, България",
       "short_category": "Втора категория",
-      "city": NaN,
+      "city": null,
       "has_coordinates": true
     },
     {
@@ -4906,7 +4906,7 @@
       "geocoding_status": "success",
       "formatted_query": "с. Тенево, с. Тенево 0, България",
       "short_category": "Втора категория",
-      "city": NaN,
+      "city": null,
       "has_coordinates": true
     },
     {

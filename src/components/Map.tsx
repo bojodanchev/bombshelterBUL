@@ -2,7 +2,7 @@
 
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import shelters from '@/data/bomb_shelters_opencage_geocoded_20250603_103516.json';
+import sheltersData from '@/data/bomb_shelters_opencage_geocoded_20250603_103516.json';
 import L from 'leaflet';
 
 // Fix for default icon issue with webpack
@@ -27,7 +27,7 @@ interface Shelter {
   type: string;
   category: string;
   short_category: string;
-  city: string;
+  city: string | null;
 }
 
 const Map = () => {
@@ -43,7 +43,7 @@ const Map = () => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-      {(shelters as Shelter[]).map((shelter) => (
+      {sheltersData.shelters.map((shelter) => (
         <Marker
           key={shelter.id}
           position={[shelter.latitude, shelter.longitude]}
