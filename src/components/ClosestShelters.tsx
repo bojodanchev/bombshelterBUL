@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import haversine from 'haversine-distance';
 import sheltersData from '@/data/bomb_shelters_opencage_geocoded_20250603_103516.json';
+import Image from 'next/image';
 
 interface Shelter {
   id: string;
@@ -13,23 +14,6 @@ interface Shelter {
   city: string | null;
   distance?: number;
 }
-
-const LocationIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-    <circle cx="12" cy="10" r="3" />
-  </svg>
-);
 
 const ClosestShelters = () => {
   const [closest, setClosest] = useState<Shelter[]>([]);
@@ -70,39 +54,63 @@ const ClosestShelters = () => {
   };
 
   return (
-    <div className="absolute bottom-8 right-8 z-[1000] bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-2xl shadow-black/20 w-full max-w-md">
-      <button
-        onClick={findClosest}
-        disabled={loading}
-        className="w-full flex items-center justify-center gap-3 bg-indigo-600 text-white font-bold py-4 px-4 rounded-xl hover:bg-indigo-700 transition-all duration-300 disabled:bg-gray-400 focus:outline-none focus:ring-4 focus:ring-indigo-300"
-      >
-        <LocationIcon />
-        {loading ? 'Finding...' : 'Find 3 Closest Shelters'}
-      </button>
+    <div className="absolute bottom-8 right-8 z-[1000] w-full max-w-sm">
+      <div className="bg-white/80 backdrop-blur-sm p-4 rounded-2xl shadow-2xl shadow-black/20">
+        <button
+          onClick={findClosest}
+          disabled={loading}
+          className="w-full flex items-center justify-center p-0 rounded-xl transition-all duration-300 disabled:opacity-50 focus:outline-none focus:ring-4 focus:ring-indigo-300"
+        >
+          {loading ? (
+            <div className="flex h-[58px] w-[250px] items-center justify-center bg-gray-200 rounded-xl">
+              <p className="text-lg font-bold text-gray-900">Finding...</p>
+            </div>
+          ) : (
+            <Image
+              src="/findclosest.png"
+              alt="Find 3 closest shelters"
+              width={250}
+              height={58}
+              className="rounded-xl"
+              priority
+            />
+          )}
+        </button>
 
-      {error && <p className="mt-4 text-center text-red-600 font-semibold">{error}</p>}
+        {error && <p className="mt-4 text-center text-red-600 font-semibold">{error}</p>}
 
-      {closest.length > 0 && (
-        <div className="mt-4 animate-fade-in">
-          <h2 className="text-lg font-bold text-gray-900 mb-3 text-center">Closest Shelters</h2>
-          <ul className="space-y-2">
-            {closest.map((shelter, index) => (
-              <li
-                key={shelter.id}
-                className="bg-gray-50/80 p-4 rounded-lg hover:bg-gray-100 transition-colors"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <p className="font-bold text-gray-800">{shelter.name}</p>
-                <p className="text-sm text-gray-600">{shelter.address}</p>
-                <p className="text-sm text-gray-600">{shelter.city}</p>
-                <p className="text-sm text-indigo-600 font-semibold mt-1">
-                  {(shelter.distance! / 1000).toFixed(2)} km away
-                </p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+        {closest.length > 0 && (
+          <div className="mt-4 animate-fade-in overflow-hidden rounded-2xl shadow-lg ring-1 ring-black/5">
+            <div className="bg-gray-900 py-3 px-5">
+              <h2 className="text-center text-lg font-semibold text-white">
+                3 closest shelters
+              </h2>
+            </div>
+            <ul className="divide-y divide-gray-200 bg-white">
+              {closest.map((shelter, index) => (
+                <li
+                  key={shelter.id}
+                  className="px-5 py-4"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <div className="flex items-center">
+                    <span className="text-xl font-bold text-blue-600 w-8">
+                      {index + 1}
+                    </span>
+                    <div className="ml-2 flex-1">
+                      <p className="text-base font-bold text-gray-900">{shelter.name}</p>
+                      <p className="text-sm text-gray-600">{shelter.city ?? 'N/A'}</p>
+                    </div>
+                    <p className="text-sm font-semibold text-indigo-500 whitespace-nowrap">
+                      {(shelter.distance! / 1000).toFixed(2)} km
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
