@@ -9,9 +9,14 @@ const MapView = dynamic(() => import('@/components/MapView'), {
   ssr: false,
 });
 
+interface Location {
+  latitude: number;
+  longitude: number;
+}
+
 export default function Home() {
   const [bunkers, setBunkers] = useState([]);
-  const [userLocation, setUserLocation] = useState(null);
+  const [userLocation, setUserLocation] = useState<Location | null>(null);
   const [closestBunkers, setClosestBunkers] = useState([]);
 
   useEffect(() => {
@@ -40,14 +45,14 @@ export default function Home() {
   useEffect(() => {
     if (userLocation && bunkers.length > 0) {
       const sortedBunkers = [...bunkers]
-        .map((bunker) => ({
+        .map((bunker: any) => ({
           ...bunker,
           distance: haversine(userLocation, {
             latitude: bunker.latitude,
             longitude: bunker.longitude,
           }),
         }))
-        .sort((a, b) => a.distance - b.distance);
+        .sort((a: any, b: any) => a.distance - b.distance);
       setClosestBunkers(sortedBunkers.slice(0, 3));
     }
   }, [userLocation, bunkers]);
