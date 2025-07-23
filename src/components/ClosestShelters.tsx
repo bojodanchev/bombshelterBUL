@@ -80,34 +80,14 @@ const ClosestShelters = () => {
         {error && <p className="mt-4 text-center text-red-600 font-semibold">{error}</p>}
 
         {closest.length > 0 && (
-          <div className="mt-4 animate-fade-in overflow-hidden rounded-2xl shadow-lg ring-1 ring-black/5">
-            <div className="bg-gray-900 py-3 px-5">
-              <h2 className="text-center text-lg font-semibold text-white">
-                3 closest shelters
-              </h2>
-            </div>
-            <ul className="divide-y divide-gray-200 bg-white">
-              {closest.map((shelter, index) => (
-                <li
-                  key={shelter.id}
-                  className="px-5 py-4"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <div className="flex items-center">
-                    <span className="text-xl font-bold text-blue-600 w-8">
-                      {index + 1}
-                    </span>
-                    <div className="ml-2 flex-1">
-                      <p className="text-base font-bold text-gray-900">{shelter.name}</p>
-                      <p className="text-sm text-gray-600">{shelter.city ?? 'N/A'}</p>
-                    </div>
-                    <p className="text-sm font-semibold text-indigo-500 whitespace-nowrap">
-                      {(shelter.distance! / 1000).toFixed(2)} km
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ul>
+          <div className="mt-4 animate-fade-in">
+            <Image
+              src="/closestwindow.png"
+              alt="Closest shelters"
+              width={384}
+              height={268}
+              priority
+            />
           </div>
         )}
       </div>
