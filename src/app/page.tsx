@@ -14,10 +14,20 @@ interface Location {
   longitude: number;
 }
 
+interface Bunker {
+  id: string;
+  name: string;
+  latitude: number;
+  longitude: number;
+  address: string;
+  city: string | null;
+  distance?: number;
+}
+
 export default function Home() {
-  const [bunkers, setBunkers] = useState([]);
+  const [bunkers, setBunkers] = useState<Bunker[]>([]);
   const [userLocation, setUserLocation] = useState<Location | null>(null);
-  const [closestBunkers, setClosestBunkers] = useState([]);
+  const [closestBunkers, setClosestBunkers] = useState<Bunker[]>([]);
 
   useEffect(() => {
     // Fetch bunker data
@@ -45,14 +55,14 @@ export default function Home() {
   useEffect(() => {
     if (userLocation && bunkers.length > 0) {
       const sortedBunkers = [...bunkers]
-        .map((bunker: any) => ({
+        .map((bunker) => ({
           ...bunker,
           distance: haversine(userLocation, {
             latitude: bunker.latitude,
             longitude: bunker.longitude,
           }),
         }))
-        .sort((a: any, b: any) => a.distance - b.distance);
+        .sort((a, b) => a.distance - b.distance);
       setClosestBunkers(sortedBunkers.slice(0, 3));
     }
   }, [userLocation, bunkers]);
