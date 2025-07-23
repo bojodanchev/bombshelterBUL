@@ -1,11 +1,61 @@
-import MapLoader from '@/components/MapLoader';
-import ClosestShelters from '@/components/ClosestShelters';
+'use client';
+
+import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
+import haversine from 'haversine-distance';
+import ClosestBunkers from '@/components/ClosestBunkers';
+
+const MapView = dynamic(() => import('@/components/MapView'), {
+  ssr: false,
+});
 
 export default function Home() {
+  const [bunkers, setBunkers] = useState([]);
+  const [userLocation, setUserLocation] = useState(null);
+  const [closestBunkers, setClosestBunkers] = useState([]);
+
+  useEffect(() => {
+    // Fetch bunker data
+    fetch('/bunkers.json')
+      .then((res) => res.json())
+      .then((data) => {
+        setBunkers(data.shelters);
+      });
+
+    // Get user location
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const location = {
+          latitude: pos.coords.latitude,
+          longitude: pos.coords.longitude,
+        };
+        setUserLocation(location);
+      },
+      (err) => {
+        console.error('Error getting user location:', err);
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    if (userLocation && bunkers.length > 0) {
+      const sortedBunkers = [...bunkers]
+        .map((bunker) => ({
+          ...bunker,
+          distance: haversine(userLocation, {
+            latitude: bunker.latitude,
+            longitude: bunker.longitude,
+          }),
+        }))
+        .sort((a, b) => a.distance - b.distance);
+      setClosestBunkers(sortedBunkers.slice(0, 3));
+    }
+  }, [userLocation, bunkers]);
+
   return (
     <main>
-      <ClosestShelters />
-      <MapLoader />
+      <MapView bunkers={bunkers} userLocation={userLocation} />
+      <ClosestBunkers bunkers={closestBunkers} />
     </main>
   );
 } 
