@@ -6,4 +6,12 @@ const Map = dynamic(() => import('@/components/Map'), {
   ssr: false,
 });
 
-export default Map; 
+const MapLoader = () => {
+  return (
+    <div className="rounded-lg overflow-hidden">
+      <Map />
+    </div>
+  );
+};
+
+export default MapLoader; 
