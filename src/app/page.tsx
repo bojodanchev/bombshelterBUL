@@ -2,12 +2,30 @@
 
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import haversine from 'haversine-distance';
 import ClosestBunkers from '@/components/ClosestBunkers';
 
 const MapView = dynamic(() => import('@/components/MapView'), {
   ssr: false,
 });
+
+function getDistance(
+  lat1: number,
+  lon1: number,
+  lat2: number,
+  lon2: number
+) {
+  const R = 6371; // Earth radius in km
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLon = ((lon2 - lon1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
 
 interface Location {
   latitude: number;
@@ -58,10 +76,12 @@ export default function Home() {
     if (userLocation && bunkers.length > 0 && !distancesCalculated) {
       const bunkersWithDistance = bunkers.map((bunker) => ({
         ...bunker,
-        distance: haversine(userLocation, {
-          latitude: bunker.latitude,
-          longitude: bunker.longitude,
-        }),
+        distance: getDistance(
+          userLocation.latitude,
+          userLocation.longitude,
+          bunker.latitude,
+          bunker.longitude
+        ),
       }));
 
       const sortedBunkers = [...bunkersWithDistance].sort(
