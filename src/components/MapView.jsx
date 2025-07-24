@@ -33,7 +33,7 @@ const userIcon = new DivIcon({
   iconAnchor: [12, 24],
 });
 
-const MapView = ({ bunkers, userLocation, closestBunkers }) => {
+const MapView = ({ bunkers, userLocation }) => {
   const mapCenter = userLocation
     ? [userLocation.latitude, userLocation.longitude]
     : [42.7, 23.3];
@@ -46,12 +46,11 @@ const MapView = ({ bunkers, userLocation, closestBunkers }) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
       {bunkers.map((bunker) => {
-        const isClosest = closestBunkers.some((cb) => cb.id === bunker.id);
         return (
           <Marker
             key={bunker.id}
             position={[bunker.latitude, bunker.longitude]}
-            icon={isClosest ? highlightedIcon : defaultIcon}
+            icon={bunker.isClosest ? highlightedIcon : defaultIcon}
           >
             <Popup>
               <b>{bunker.name}</b>

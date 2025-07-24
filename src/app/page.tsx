@@ -22,6 +22,7 @@ interface Bunker {
   address: string;
   city: string | null;
   distance?: number;
+  isClosest?: boolean;
 }
 
 export default function Home() {
@@ -67,19 +68,22 @@ export default function Home() {
         (a, b) => a.distance! - b.distance!
       );
 
-      setBunkers(sortedBunkers);
-      setClosestBunkers(sortedBunkers.slice(0, 3));
+      const closestBunkerIds = sortedBunkers.slice(0, 3).map((b) => b.id);
+
+      const finalBunkers = sortedBunkers.map((b) => ({
+        ...b,
+        isClosest: closestBunkerIds.includes(b.id),
+      }));
+
+      setBunkers(finalBunkers);
+      setClosestBunkers(finalBunkers.slice(0, 3));
       setDistancesCalculated(true);
     }
   }, [userLocation, bunkers, distancesCalculated]);
 
   return (
     <main>
-      <MapView
-        bunkers={bunkers}
-        userLocation={userLocation}
-        closestBunkers={closestBunkers}
-      />
+      <MapView bunkers={bunkers} userLocation={userLocation} />
       <ClosestBunkers bunkers={closestBunkers} />
     </main>
   );
