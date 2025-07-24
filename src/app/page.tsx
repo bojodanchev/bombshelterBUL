@@ -28,6 +28,7 @@ export default function Home() {
   const [bunkers, setBunkers] = useState<Bunker[]>([]);
   const [userLocation, setUserLocation] = useState<Location | null>(null);
   const [closestBunkers, setClosestBunkers] = useState<Bunker[]>([]);
+  const [distancesCalculated, setDistancesCalculated] = useState(false);
 
   useEffect(() => {
     // Fetch bunker data
@@ -53,8 +54,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    // A new effect to calculate distances once we have location and bunkers
-    if (userLocation && bunkers.length > 0 && !bunkers[0].distance) {
+    if (userLocation && bunkers.length > 0 && !distancesCalculated) {
       const bunkersWithDistance = bunkers.map((bunker) => ({
         ...bunker,
         distance: haversine(userLocation, {
@@ -64,13 +64,14 @@ export default function Home() {
       }));
 
       const sortedBunkers = [...bunkersWithDistance].sort(
-        (a, b) => a.distance - b.distance
+        (a, b) => a.distance! - b.distance!
       );
 
       setBunkers(sortedBunkers);
       setClosestBunkers(sortedBunkers.slice(0, 3));
+      setDistancesCalculated(true);
     }
-  }, [userLocation, bunkers]);
+  }, [userLocation, bunkers, distancesCalculated]);
 
   return (
     <main>
