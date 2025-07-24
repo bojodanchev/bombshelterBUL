@@ -53,16 +53,21 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (userLocation && bunkers.length > 0) {
-      const sortedBunkers = [...bunkers]
-        .map((bunker) => ({
-          ...bunker,
-          distance: haversine(userLocation, {
-            latitude: bunker.latitude,
-            longitude: bunker.longitude,
-          }),
-        }))
-        .sort((a, b) => a.distance - b.distance);
+    // A new effect to calculate distances once we have location and bunkers
+    if (userLocation && bunkers.length > 0 && !bunkers[0].distance) {
+      const bunkersWithDistance = bunkers.map((bunker) => ({
+        ...bunker,
+        distance: haversine(userLocation, {
+          latitude: bunker.latitude,
+          longitude: bunker.longitude,
+        }),
+      }));
+
+      const sortedBunkers = [...bunkersWithDistance].sort(
+        (a, b) => a.distance - b.distance
+      );
+
+      setBunkers(sortedBunkers);
       setClosestBunkers(sortedBunkers.slice(0, 3));
     }
   }, [userLocation, bunkers]);
