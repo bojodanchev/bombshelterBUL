@@ -47,7 +47,6 @@ export default function Home() {
   const [bunkers, setBunkers] = useState<Bunker[]>([]);
   const [userLocation, setUserLocation] = useState<Location | null>(null);
   const [closestBunkers, setClosestBunkers] = useState<Bunker[]>([]);
-  const [distancesCalculated, setDistancesCalculated] = useState(false);
 
   useEffect(() => {
     // Fetch bunker data
@@ -73,33 +72,30 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (userLocation && bunkers.length > 0 && !distancesCalculated) {
-      const bunkersWithDistance = bunkers.map((bunker) => ({
-        ...bunker,
-        distance: getDistance(
-          userLocation.latitude,
-          userLocation.longitude,
-          bunker.latitude,
-          bunker.longitude
-        ),
-      }));
+    if (userLocation && bunkers.length > 0 && !bunkers[0].distance) {
+      const sortedBunkers = bunkers
+        .map((b) => ({
+          ...b,
+          distance: getDistance(
+            userLocation.latitude,
+            userLocation.longitude,
+            b.latitude,
+            b.longitude
+          ),
+        }))
+        .sort((a, b) => a.distance - b.distance);
 
-      const sortedBunkers = [...bunkersWithDistance].sort(
-        (a, b) => a.distance! - b.distance!
-      );
+      const topThree = sortedBunkers.slice(0, 3);
+      setClosestBunkers(topThree);
 
-      const closestBunkerIds = sortedBunkers.slice(0, 3).map((b) => b.id);
-
+      const closestIds = new Set(topThree.map((b) => b.id));
       const finalBunkers = sortedBunkers.map((b) => ({
         ...b,
-        isClosest: closestBunkerIds.includes(b.id),
+        isClosest: closestIds.has(b.id),
       }));
-
       setBunkers(finalBunkers);
-      setClosestBunkers(finalBunkers.slice(0, 3));
-      setDistancesCalculated(true);
     }
-  }, [userLocation, bunkers, distancesCalculated]);
+  }, [userLocation, bunkers]);
 
   return (
     <main>
