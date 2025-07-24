@@ -56,10 +56,10 @@ const MapView = ({ bunkers, userLocation }) => {
               <b>{bunker.name}</b>
               <br />
               {bunker.address}
-              {bunker.distance && (
+              {bunker.distance !== undefined && (
                 <>
                   <br />
-                  Distance: {(bunker.distance / 1000).toFixed(2)} km
+                  Distance: {bunker.distance.toFixed(2)} km
                 </>
               )}
             </Popup>
