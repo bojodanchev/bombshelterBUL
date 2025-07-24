@@ -60,6 +60,19 @@ const MapView = ({ bunkers, userLocation }) => {
                   Distance: {bunker.distance.toFixed(2)} km
                 </>
               )}
+              {userLocation && (
+                <>
+                  <br />
+                  <a
+                    href={`https://www.google.com/maps/dir/?api=1&origin=${userLocation.latitude},${userLocation.longitude}&destination=${bunker.latitude},${bunker.longitude}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    Get Directions
+                  </a>
+                </>
+              )}
             </Popup>
           </Marker>
         );
