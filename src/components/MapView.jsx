@@ -12,11 +12,15 @@ const defaultIcon = new L.Icon({
   shadowSize: [41, 41],
 });
 
-const highlightedIcon = new DivIcon({
-  html: `<div style="background-color: #22c55e; width: 24px; height: 24px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.5);"></div>`,
-  className: 'highlighted-marker',
-  iconSize: [24, 24],
-  iconAnchor: [12, 24],
+const highlightedIcon = new L.Icon({
+  iconUrl: '/marker-icon.png',
+  iconRetinaUrl: '/marker-icon-2x.png',
+  shadowUrl: '/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+  className: 'leaflet-marker-green',
 });
 
 const userIcon = new DivIcon({
