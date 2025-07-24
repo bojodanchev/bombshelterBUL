@@ -2,6 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.leaflet-marker-green {
-  filter: hue-rotate(240deg) saturate(5);
+.leaflet-marker-green .leaflet-marker-icon {
+  filter: hue-rotate(90deg);
 } 
