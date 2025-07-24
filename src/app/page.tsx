@@ -69,7 +69,11 @@ export default function Home() {
 
   return (
     <main>
-      <MapView bunkers={bunkers} userLocation={userLocation} />
+      <MapView
+        bunkers={bunkers}
+        userLocation={userLocation}
+        closestBunkers={closestBunkers}
+      />
       <ClosestBunkers bunkers={closestBunkers} />
     </main>
   );
