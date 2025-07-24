@@ -1,6 +1,6 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
+import L, { DivIcon } from 'leaflet';
 
 const defaultIcon = new L.Icon({
   iconUrl: '/marker-icon.png',
@@ -19,6 +19,18 @@ const highlightedIcon = new L.Icon({
   iconAnchor: [12, 41],
   popupAnchor: [1, -34],
   shadowSize: [41, 41],
+});
+
+const userIcon = new DivIcon({
+  html: `
+    <div style="background-color: #ef4444; width: 24px; height: 24px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.5);"></div>
+    <div style="position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); color: black; font-weight: bold; background: white; padding: 2px 5px; border-radius: 3px; white-space: nowrap;">
+      You are here
+    </div>
+  `,
+  className: 'user-location-marker',
+  iconSize: [24, 24],
+  iconAnchor: [12, 24],
 });
 
 const MapView = ({ bunkers, userLocation, closestBunkers }) => {
@@ -56,8 +68,10 @@ const MapView = ({ bunkers, userLocation, closestBunkers }) => {
         );
       })}
       {userLocation && (
-        <Marker position={[userLocation.latitude, userLocation.longitude]}>
-          <Popup>You are here</Popup>
+        <Marker
+          position={[userLocation.latitude, userLocation.longitude]}
+          icon={userIcon}
+        >
         </Marker>
       )}
     </MapContainer>
